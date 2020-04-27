@@ -34,6 +34,18 @@ $(document).ready(function() {
     // New refs after creating html content via template
     var box = $('.box');
 
- 
+    // Click event on boxes
+    box.click(function() {
+        var self = $(this).children(); // Assegnazione valore this a variabile "self", per riutilizzarla nella chiamata API
 
-});
+        // API call to get random int from 1 to 9 
+        $.ajax({
+            url:     randIntApi,
+            method:  'GET',
+            success: function(data) { self.text(data.response); },
+            error:   function()     { console.log('API call error'); }
+        }); 
+
+    }); // End of box.click event
+
+}); // End of document.ready

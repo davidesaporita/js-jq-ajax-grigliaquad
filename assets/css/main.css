@@ -33,4 +33,5 @@
     height: calc(400px / 6);
     background-color: white;
     border: 1px solid #92A8D1;
+    cursor:pointer;
 }
