@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <title>Quadratini AJAX</title>
 </head>
 <body>
     <div id="app">
+        <div class="ajax"></div>
+        <div class="text"></div>
         <div class="boxes"></div>
     </div>
 
     <!-- Handlebars Templates -->
     <script id="box-template" type="text/x-handlebars-template">
-        <div class="box" data-col="{{ col }}">
+        <div class="box" data-id="{{ id }}">
             <span class="number"></span>
         </div>
     </script>
+
+    <!-- Hidden audio -->
+    <audio id="audio" src="assets/img/ajax.mp3" autoplay="false" ></audio>
 
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

@@ -20,11 +20,12 @@ $(document).ready(function() {
     // Html boxes population with a bit of Handlebars
     var boxTemplate = Handlebars.compile($('#box-template').html());
     var html = '';
+    var id = 1;
 
     for (var i = 0; i < rows; i++) {
         html += '<div class="row" data-row="' + (i+1) + '">';
-        for( var j = 0; j < cols; j++) {
-            html += boxTemplate({ col: j+1 });
+        for( var j = 0; j < cols; j++, id++) {
+            html += boxTemplate({ id: id });
         }
         html += '</div>';
     }
@@ -35,7 +36,7 @@ $(document).ready(function() {
     var box = $('.box');
 
     // Click event on boxes
-    box.click(function() {
+    $('#app').on('click', '.box', function() {
         var self = $(this); // Assegnazione valore this a variabile "self", per riutilizzarla nella chiamata API
         fireworks(self); 
 
@@ -54,6 +55,11 @@ $(document).ready(function() {
                 setTimeout(function() { 
                     self.removeClass('rotate'); 
                 }, 800);
+                
+                if(checkCompleted()) {
+                    happyEnd();
+                }
+                
             },
             error: function() { 
                 console.log('API call error'); 
@@ -63,9 +69,72 @@ $(document).ready(function() {
     }); // End of box.click event
 
 
-    // Functions
+    // Funzioni che funzionano
     function fireworks(ref) {
         ref.addClass('rotate');
     }
+
+    function checkCompleted() {
+        var x = 0;
+        box.each(function() {
+            this.classList.value.includes('play') ? x++ : x;
+        });
+        
+        if(x === 20) return true;
+        else        return false;
+    }
+
+    function happyEnd() {
+        box.addClass('tremolo');
+        var i = (rows*cols);
+        faseOne = setInterval(function() {
+            $('.box[data-id="'+ i +'"]').addClass('hinge');
+            if(i <= 0) clearInterval(faseOne);
+            i--;
+        }, 1730);
+
+        setTimeout(function() {
+            y = (rows*cols);
+            faseTwo = setInterval(function() {
+                $('.box[data-id="'+ y +'"]').addClass('get-down');              
+                if(y <= 0) clearInterval(faseTwo);
+                y--;
+            }, 1730);
+        }, 2000);
+
+        setTimeout(function() {
+            $('.ajax').addClass('ease');
+        }, 2730);
+
+        setTimeout(function() {
+            document.getElementById("audio").play();
+        }, 1000);
+
+        setTimeout(function() {
+            $('#app').addClass('white');
+            $('.box').addClass('white');
+        }, 20000);
+
+        setTimeout(function() {
+            $('.text').text('PULITO E IGIENE SENZA FATICA');
+            setTimeout(function() {
+                $('.text').html('AJAX SI!<br>ED È GIA\' FINITA');
+                setTimeout(function() {
+                    $('.text').text('PULITO E IGIENE SENZA RISHAQUO');
+                    setTimeout(function() {
+                        $('.text').text('AJAX');
+                        setTimeout(function() {
+                            $('.text').html('IGIENE SI<br>FATICA NO');
+                            setTimeout(function() {
+                                $('.text').html('');
+                            }, 2500);
+                        }, 1800);
+                    }, 2200);
+                }, 3500);
+            }, 3700);
+        }, 25000);
+        
+    }
+
 
 }); // End of document.ready
