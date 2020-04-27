@@ -105,11 +105,11 @@
     background-position: center;
     background-size: contain;
     z-index: 2;
-    transition: transform 30s ease-in-out;
 }
 
 .ease {
     transform: scale(.8);
+    transition: transform 30s ease-in-out;
 }
 
 .box.white {
