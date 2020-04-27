@@ -22,9 +22,9 @@ $(document).ready(function() {
     var html = '';
 
     for (var i = 0; i < rows; i++) {
-        html += '<div class="row">';
+        html += '<div class="row" data-row="' + (i+1) + '">';
         for( var j = 0; j < cols; j++) {
-            html += boxTemplate({});
+            html += boxTemplate({ col: j+1 });
         }
         html += '</div>';
     }
@@ -32,10 +32,10 @@ $(document).ready(function() {
     boxes.append(html);
 
     // New refs after creating html content via template
-    var box = 
+    var box = $('.box');
 
     // Click event on boxes
-    $('.box').click(function() {
+    box.click(function() {
         var self = $(this); // Assegnazione valore this a variabile "self", per riutilizzarla nella chiamata API
         fireworks(self); 
 
@@ -46,18 +46,26 @@ $(document).ready(function() {
             success: function(data) {
                 self.removeClass('yellow green');
                 self.children().text(data.response);
-                if(data.response <= 5) self.addClass('yellow');
-                else                   self.addClass('green');
+                if(data.response <= 5) {
+                    self.addClass('yellow play');
+                } else {
+                    self.addClass('green play');
+                }                  
+                setTimeout(function() { 
+                    self.removeClass('rotate'); 
+                }, 800);
             },
-            error: function() { console.log('API call error'); }
+            error: function() { 
+                console.log('API call error'); 
+            }
         }); 
 
     }); // End of box.click event
 
 
-    // FUNZIONI CHE FUNZIONANO
+    // Functions
     function fireworks(ref) {
-        ref.addClass('get-up');
+        ref.addClass('rotate');
     }
 
 }); // End of document.ready
