@@ -35,3 +35,11 @@
     border: 1px solid #92A8D1;
     cursor:pointer;
 }
+
+.green {
+    background-color: darkgreen;
+}
+
+.yellow {
+    background-color: darkgoldenrod;
+}

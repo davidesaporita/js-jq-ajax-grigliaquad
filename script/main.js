@@ -36,14 +36,19 @@ $(document).ready(function() {
 
     // Click event on boxes
     box.click(function() {
-        var self = $(this).children(); // Assegnazione valore this a variabile "self", per riutilizzarla nella chiamata API
+        var self = $(this); // Assegnazione valore this a variabile "self", per riutilizzarla nella chiamata API
 
         // API call to get random int from 1 to 9 
         $.ajax({
-            url:     randIntApi,
-            method:  'GET',
-            success: function(data) { self.text(data.response); },
-            error:   function()     { console.log('API call error'); }
+            url: randIntApi,
+            method: 'GET',
+            success: function(data) { 
+                self.removeClass('yellow green');
+                self.children().text(data.response);
+                if(data.response <= 5) self.addClass('yellow');
+                else                   self.addClass('green');
+            },
+            error: function() { console.log('API call error'); }
         }); 
 
     }); // End of box.click event
