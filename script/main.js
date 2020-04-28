@@ -122,7 +122,7 @@ $(document).ready(function() {
                 setTimeout(function() {
                     $('.text').text('PULITO E IGIENE SENZA RISHAQUO');
                     setTimeout(function() {
-                        $('.text').text('AJAX');
+                        $('.text').text('$.ajax({});');
                         setTimeout(function() {
                             $('.text').html('IGIENE SI<br>FATICA NO');
                             setTimeout(function() {
